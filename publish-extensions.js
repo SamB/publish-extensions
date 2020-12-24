@@ -16,6 +16,8 @@ const util = require('util');
 const semver = require('semver');
 const download = require('download');
 const exec = require('./lib/exec');
+// Fancier Github Actions
+const core = require('@actions/core');
 const readFile = util.promisify(fs.readFile);
 
 (async () => {
@@ -40,7 +42,7 @@ const readFile = util.promisify(fs.readFile);
   process.env.NODE_ENV = 'development';
 
   for (const extension of extensions) {
-    console.log(`\nProcessing extension: ${JSON.stringify(extension, null, 2)}`);
+    core.startGroup(`Processing extension: ${JSON.stringify(extension, null, 2)}`);
     try {
       const { id } = extension;
 
@@ -146,6 +148,7 @@ const readFile = util.promisify(fs.readFile);
       console.error(error);
       process.exitCode = -1;
     } finally {
+      core.endGroup();
       await exec('rm -rf /tmp/repository /tmp/download');
     }
   }

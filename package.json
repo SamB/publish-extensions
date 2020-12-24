@@ -25,6 +25,7 @@
     "upgrade": "node upgrade-extensions"
   },
   "dependencies": {
+    "@actions/core": "^1.2.6",
     "download": "^8.0.0",
     "minimist": "^1.2.5",
     "ovsx": "0.1.0-next.e000fdb",
